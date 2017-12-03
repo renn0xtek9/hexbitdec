@@ -43,7 +43,8 @@ Item {
 					}
 					onClicked:{
 						//console.log("hex clicked")
-						Conversionscript.conversion_from_hex_to_dec(field_hex.text)
+						field_dec.text=Conversionscript.conversion_from_hex_to_dec(field_hex.text)
+						field_bin.text=Conversionscript.conversion_from_dec_to_bin(Conversionscript.conversion_from_hex_to_dec(field_hex.text))
 					}
 				}
 				PlasmaComponents.ToolButton{
@@ -53,8 +54,9 @@ Item {
 					Layout.fillWidth: true
 					onClicked:{
 						//console.log("dec clicked")
-						Conversionscript.conversion_from_dec_to_hex(field_dec.text)
-						Conversionscript.conversion_from_dec_to_bin(field_dec.text)
+						field_hex.text=Conversionscript.conversion_from_dec_to_hex(field_dec.text)
+						field_bin.text=Conversionscript.conversion_from_dec_to_bin(field_dec.text)
+						
 					}
 				}
 				PlasmaComponents.ToolButton{
@@ -68,7 +70,8 @@ Item {
 					}
 					onClicked:{
 						//console.log("bin clicked")
-						Conversionscript.conversion_from_bin_to_dec(field_bin.text)
+						field_dec.text=Conversionscript.conversion_from_bin_to_dec(field_bin.text)
+						field_hex.text=Conversionscript.conversion_from_dec_to_hex(Conversionscript.conversion_from_bin_to_dec(field_bin.text))
 					}
 				}
 			}			

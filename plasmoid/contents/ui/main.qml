@@ -20,6 +20,18 @@ Item {
 		Layout.maximumHeight:75
 		ColumnLayout{
 			id: col
+			function convertfromdecimal(){
+				field_hex.text=Conversionscript.conversion_from_dec_to_hex(field_dec.text)
+				field_bin.text=Conversionscript.conversion_from_dec_to_bin(field_dec.text)
+			}
+			function convertfrombinary(){
+				field_dec.text=Conversionscript.conversion_from_bin_to_dec(field_bin.text)
+				field_hex.text=Conversionscript.conversion_from_dec_to_hex(Conversionscript.conversion_from_bin_to_dec(field_bin.text))
+			}
+			function convertfromhex(){
+				field_dec.text=Conversionscript.conversion_from_hex_to_dec(field_hex.text)
+				field_bin.text=Conversionscript.conversion_from_dec_to_bin(Conversionscript.conversion_from_hex_to_dec(field_hex.text))
+			}
 			anchors{
 				left:parent.left 
 				right:parent.right
@@ -34,6 +46,7 @@ Item {
 				}
 				PlasmaComponents.ToolButton{
 					id: button_hex
+					flat: false
 					text:i18n("Hex")
 					tooltip: i18n("Convert from Hexadecimal")
 					Layout.fillWidth: true
@@ -42,26 +55,23 @@ Item {
 						right:button_decimal.left
 					}
 					onClicked:{
-						//console.log("hex clicked")
-						field_dec.text=Conversionscript.conversion_from_hex_to_dec(field_hex.text)
-						field_bin.text=Conversionscript.conversion_from_dec_to_bin(Conversionscript.conversion_from_hex_to_dec(field_hex.text))
+						col.convertfromhex()
 					}
 				}
 				PlasmaComponents.ToolButton{
 					id: button_decimal
+					flat:false
 					text:i18n("Dec")
 					tooltip: i18n("Convert from Decimal")
 					Layout.fillWidth: true
 					onClicked:{
-						//console.log("dec clicked")
-						field_hex.text=Conversionscript.conversion_from_dec_to_hex(field_dec.text)
-						field_bin.text=Conversionscript.conversion_from_dec_to_bin(field_dec.text)
-						
+						col.convertfromdecimal()						
 					}
 				}
 				PlasmaComponents.ToolButton{
 					id: button_binary
 					text:i18n("Bin")
+					flat: false
 					tooltip: i18n("Convert from Binary")
 					Layout.fillWidth: true
 					anchors{
@@ -69,9 +79,7 @@ Item {
 						left:button_decimal.right
 					}
 					onClicked:{
-						//console.log("bin clicked")
-						field_dec.text=Conversionscript.conversion_from_bin_to_dec(field_bin.text)
-						field_hex.text=Conversionscript.conversion_from_dec_to_hex(Conversionscript.conversion_from_bin_to_dec(field_bin.text))
+						col.convertfrombinary()
 					}
 				}
 			}			
@@ -83,9 +91,14 @@ Item {
 					Layout.fillWidth: true
 					id: field_hex
 					text: "1A2B3B"
-					
 					anchors{
 						left:parent.left
+					}
+					Keys.onPressed: {
+						if (event.key==Qt.Key_Enter || event.key==Qt.Key_Return) {
+							col.convertfromhex()
+							event.accepted = true;
+						}
 					}
 				}
 				PlasmaComponents.TextField{
@@ -93,6 +106,12 @@ Item {
 					Layout.fillWidth: true
 					id: field_dec
 					text: "123"
+					Keys.onPressed: {
+						if (event.key==Qt.Key_Enter || event.key==Qt.Key_Return) {
+							col.convertfromdecimal()
+							event.accepted = true;
+						}
+					}
 				}
 				PlasmaComponents.TextField{
 					clearButtonShown: true
@@ -101,6 +120,12 @@ Item {
 					text: "010011"
 					anchors{
 						right:parent.right
+					}
+					Keys.onPressed: {
+						if (event.key==Qt.Key_Enter || event.key==Qt.Key_Return) {
+							col.convertfrombinary()
+							event.accepted = true;
+						}
 					}
 				}
 			}

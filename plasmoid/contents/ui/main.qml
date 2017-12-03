@@ -6,38 +6,102 @@ import org.kde.plasma.plasmoid 2.0 //needed to give the Plasmoid attached proper
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.extras 2.0 as PlasmaExtras
+import "conversionscript.js" as Conversionscript
 Item {
 	id: mainWindow
-	Plasmoid.toolTipMainText: i18n("@TP:tooltiptextplasmoid@")
-	Plasmoid.switchWidth: units.gridUnit * 10
-	Plasmoid.switchHeight: units.gridUnit * 10	
-	Layout.preferredHeight:800
+	Plasmoid.toolTipMainText: i18n("Converter between hexadecimal, binary and decimal numbers")
+	Plasmoid.switchWidth: units.gridUnit * 5
+	Plasmoid.switchHeight: units.gridUnit * 5
+	Plasmoid.activationTogglesExpanded: true
+	//Layout.preferredHeight:200
 	Plasmoid.fullRepresentation:  Item{
 		id: mainrepresentation
-		Layout.minimumHeight:300
-		Layout.minimumWidth:300
-		Layout.fillHeight : true
-		Label{
-			id: lbl
-			text: plasmoid.configuration.propertyone	//This a persistant property. look at main.xml to define those !!
+		Layout.maximumWidth:300
+		Layout.maximumHeight:75
+		ColumnLayout{
+			id: col
+			anchors{
+				left:parent.left 
+				right:parent.right
+				top:parent.top
+				bottom:parent.bottom
+			}
+			RowLayout{
+				id:row_button
+				anchors{
+					left:parent.left 
+					right: parent.right
+				}
+				PlasmaComponents.ToolButton{
+					id: button_hex
+					text:i18n("Hex")
+					tooltip: i18n("Convert from Hexadecimal")
+					Layout.fillWidth: true
+					anchors{
+						left:parent.left
+						right:button_decimal.left
+					}
+					onClicked:{
+						//console.log("hex clicked")
+						Conversionscript.conversion_from_hex_to_dec(field_hex.text)
+					}
+				}
+				PlasmaComponents.ToolButton{
+					id: button_decimal
+					text:i18n("Dec")
+					tooltip: i18n("Convert from Decimal")
+					Layout.fillWidth: true
+					onClicked:{
+						//console.log("dec clicked")
+						Conversionscript.conversion_from_dec_to_hex(field_dec.text)
+						Conversionscript.conversion_from_dec_to_bin(field_dec.text)
+					}
+				}
+				PlasmaComponents.ToolButton{
+					id: button_binary
+					text:i18n("Bin")
+					tooltip: i18n("Convert from Binary")
+					Layout.fillWidth: true
+					anchors{
+						right:parent.right
+						left:button_decimal.right
+					}
+					onClicked:{
+						//console.log("bin clicked")
+						Conversionscript.conversion_from_bin_to_dec(field_bin.text)
+					}
+				}
+			}			
+			RowLayout{
+				id:row_txtfield 
+				Layout.fillWidth: true
+				PlasmaComponents.TextField{
+					clearButtonShown: true
+					Layout.fillWidth: true
+					id: field_hex
+					text: "1A2B3B"
+					
+					anchors{
+						left:parent.left
+					}
+				}
+				PlasmaComponents.TextField{
+					clearButtonShown: true
+					Layout.fillWidth: true
+					id: field_dec
+					text: "123"
+				}
+				PlasmaComponents.TextField{
+					clearButtonShown: true
+					Layout.fillWidth: true
+					id: field_bin
+					text: "010011"
+					anchors{
+						right:parent.right
+					}
+				}
+			}
 		}
 	}
-	PlasmaCore.DataSource {
-		id: executable
-		engine: "executable"
-		connectedSources: []
-		onNewData: {
-			var exitCode = data["exit code"]
-			var exitStatus = data["exit status"]
-			var stdout = data["stdout"]
-			var stderr = data["stderr"]
-			exited(exitCode, exitStatus, stdout, stderr)
-			disconnectSource(sourceName) // cmd finished
-		}
-		function exec(cmd) {
-			connectSource(cmd)
-		}
-		signal exited(int exitCode, int exitStatus, string stdout, string stderr)
-	}	
-// 	call with  executable.exec("keditbookmarks "+itemmodel.konquerorBookmarks)
 }
+

@@ -18,15 +18,36 @@ Item {
 	//Layout.preferredHeight:200
 	Plasmoid.fullRepresentation:  Item{
 		id: mainrepresentation
-		Layout.maximumWidth:300
-		Layout.maximumHeight:75
-		Computersciencetab{
-			id : cstab 
-			anchors{
-				left:parent.left 
-				right:parent.right
-				top:parent.top
-				bottom:parent.bottom
+// 		Layout.maximumWidth:300
+// 		Layout.maximumHeight:75
+		TabView
+		{
+			anchors.fill:parent
+			Tab{
+				title:"Computer Science"
+				Computersciencetab{
+					id : cstab 
+					anchors{
+						left:parent.left 
+						right:parent.right
+						top:parent.top
+						bottom:parent.bottom
+					}
+				}
+			}
+			Tab{
+				title: "Energy"
+				Energytab{
+					id :energytab
+					anchors.fill:parent
+				}
+
+
+			}
+			Tab{
+				title: "Surface"
+				Rectangle { color: "red" }
+
 			}
 		}
 		

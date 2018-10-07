@@ -30,20 +30,20 @@ ColumnLayout{
 // 			}
 			RowLayout{
 				id:row_button
-				anchors{
-					left:parent.left 
-					right: parent.right
-				}
+// 				anchors{
+// 					left:parent.left 
+// 					right: parent.right
+// 				}
 				PlasmaComponents.ToolButton{
 					id: button_hex
 					flat: false
 					text:i18n("Hex")
 					tooltip: i18n("Convert from Hexadecimal")
 					Layout.fillWidth: true
-					anchors{
-						left:parent.left
-						right:button_decimal.left
-					}
+// 					anchors{
+// 						left:parent.left
+// 						right:button_decimal.left
+// 					}
 					onClicked:{
 						col.convertfromhex()
 					}
@@ -64,10 +64,10 @@ ColumnLayout{
 					flat: false
 					tooltip: i18n("Convert from Binary")
 					Layout.fillWidth: true
-					anchors{
-						right:parent.right
-						left:button_decimal.right
-					}
+// 					anchors{
+// 						right:parent.right
+// 						left:button_decimal.right
+// 					}
 					onClicked:{
 						col.convertfrombinary()
 					}
@@ -81,9 +81,9 @@ ColumnLayout{
 					Layout.fillWidth: true
 					id: field_hex
 					text: "1A2B3B"
-					anchors{
-						left:parent.left
-					}
+// 					anchors{
+// 						left:parent.left
+// 					}
 					Keys.onPressed: {
 						if (event.key==Qt.Key_Enter || event.key==Qt.Key_Return) {
 							col.convertfromhex()
@@ -108,9 +108,9 @@ ColumnLayout{
 					Layout.fillWidth: true
 					id: field_bin
 					text: "010011"
-					anchors{
-						right:parent.right
-					}
+// 					anchors{
+// 						right:parent.right
+// 					}
 					Keys.onPressed: {
 						if (event.key==Qt.Key_Enter || event.key==Qt.Key_Return) {
 							col.convertfrombinary()

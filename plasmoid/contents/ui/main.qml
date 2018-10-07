@@ -46,8 +46,6 @@ Item {
 			}
 			Tab{
 				title: "Surface"
-				Rectangle { color: "red" }
-
 			}
 		}
 		

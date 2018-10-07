@@ -23,13 +23,22 @@ function createEnergyModel(model)
 {
 	for (var i = 0; i < getListOfEnergyFields().length; i++) 
 	{
-		model.insert(0,{"name":getListOfEnergyFields()[i],"value":-1.0})
+		model.insert(0,{"name":getListOfEnergyFields()[i],"value":"-1.0"});
 	}	
+}
+
+function formatvalue(val)
+{
+	if((Math.abs(val)<10000) &&(Math.abs(val) >0.01))
+	{
+		return  val.toFixed(4).toString();
+	}
+	return val.toExponential(4);
 }
 
 function getListOfEnergyFields()
 {
-	var ret=["Joule","Wh","kg. TNT"];
+	var ret=["Joule","Wh","cal","ev","Mev","kg. TNT","1t Coal","1t Oil","1L diesel","1L gasoline"];
 	return ret;
 }
 function UpdateEnergy(model,name,value)
@@ -40,8 +49,6 @@ function UpdateEnergy(model,name,value)
 		var elem=model.get(i);
 		var j=getListOfEnergyFields().indexOf(elem.name)
 		model.setProperty(i,"value",listofconvertedvalue[j])
-		
-		
 	}
 }
 function getListOfConvertedEnergy(name,value){
@@ -52,14 +59,35 @@ function getListOfConvertedEnergy(name,value){
 			joule=valuefloat;
 			break;
 		case "Wh":
-			joule=valuefloat*3600.0
+			joule=valuefloat*3600.0;
 			break;
 		case "kg. TNT":
-			joule=valuefloat*4184.0*1000000.0
+			joule=valuefloat*4184.0*1000000.0;
 			break;
-			
+		case "cal":
+			joule=valuefloat*4184;
+			break;
+		case "ev":
+			joule=valuefloat*1.6e-19;
+			break;
+		case "Mev":
+			joule=valuefloat*1.6e-13;
+			break;
+		case "1t Coal":
+			joule=valuefloat*29.3076E9;
+			break;
+		case "1t Oil":
+			joule=valuefloat*41.868E9;
+			break;
+		case "1L diesel":
+			joule=valuefloat*36.4E6;
+			break
+		case "1L gasoline":
+			joule=valuefloat*32.08E6;
+			break;			
 		default:
-			defaultaction;
+			console.log("Field "+getListOfEnergyFields()[i]+" not implemented")
+			joule=NaN;
 	}
 // 	console.log(value +" "+name+" is "+joule+"J" );
 	var ret=[];
@@ -68,14 +96,35 @@ function getListOfConvertedEnergy(name,value){
 		switch(getListOfEnergyFields()[i])
 		{
 			case "Joule":
-				ret.push(joule)
+				ret.push(formatvalue(joule))
 				break ;
 			case "Wh":
-				ret.push(joule/3600.0);
+				ret.push(formatvalue(joule/3600.0));
 				break;
-			case "kg .TNT":
-				ret.push(joule/4184.0/1000000);
+			case "kg. TNT":
+				ret.push(formatvalue(joule/4184.0/1000000));
 				break;
+			case "cal":
+				ret.push(formatvalue(joule/4184));
+				break;
+			case "ev":
+				ret.push(formatvalue(joule*1.6e19));
+				break;
+			case "Mev":
+				ret.push(formatvalue(joule*1.6e13));
+				break;
+			case "1t Coal":
+				ret.push(formatvalue(joule/29.3076E9));
+				break;
+			case "1t Oil":
+				ret.push(formatvalue(joule/41.868E9));
+				break;
+			case "1L diesel":
+				ret.push(formatvalue(joule/36.4E6));
+				break
+			case "1L gasoline":
+				ret.push(formatvalue(joule/32.08E6));
+				break;		
 			default:
 				ret.push(NaN)
 				console.log("Field "+getListOfEnergyFields()[i]+" not implemented")

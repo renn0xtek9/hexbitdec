@@ -16,28 +16,29 @@ ColumnLayout{
 	function clicked(name,value)
 	{
 		
-		Conversionscript.UpdateEnergy(fruitModel,name,value)
+		Conversionscript.UpdateEnergy(listmodel,name,value)
 	}
 	function createmodel()
 	{
-		console.log("create");
-		Conversionscript.createEnergyModel(fruitModel)
+		Conversionscript.createEnergyModel(listmodel)
 	}
 	
 	ListModel {				//This will be create onCompleted by the javascript script !
-		id: fruitModel
+		id: listmodel
 	}
 	Component {
-		id: fruitDelegate
-		Row {
+		id: listDelegate
+		RowLayout {
+			width: listview.width
 			id: rowcomponent
-			Layout.fillWidth:true
-			Layout.fillHeight:true
 			spacing: 10
 			PlasmaComponents.TextField{
+				Layout.fillWidth:true
+	 			Layout.fillHeight:true
 				id : textfield
 				text: value} 
 			PlasmaComponents.ToolButton{ 
+				width:80
 				id: button
 				text: name
 				flat: true
@@ -48,14 +49,18 @@ ColumnLayout{
 			{
 				col.clicked(name,textfield.text) ;
 			}
+			Component.onCompleted:{
+				console.log(rowcomponent.width);
+			}
 		}
 	}
 	
 	ListView {
+		id: listview
 		Layout.fillWidth:true
 		Layout.fillHeight:true
-		model: fruitModel
-		delegate:fruitDelegate
+		model: listmodel
+		delegate:listDelegate
 		
 	}
 	Component.onCompleted:{

@@ -1,4 +1,85 @@
 //conversionscript.js
+//Computer science
+function getListOfComputerScienceFields()
+{
+	var ret=["Binary","Hex","Decimal"];
+	return ret;
+}
+
+function createComputerScienceModel(model)
+{
+	for(var i=0; i<getListOfComputerScienceFields().length;i++)
+	{
+		model.insert(0,{"name":getListOfComputerScienceFields()[i],"value":"-1.0"});
+	}	
+}
+function UpdateComputerScience(model,name,value)
+{
+	var listofconvertedvalue=getListOfConvertedComputerScience(name,value);
+	for (var i=0 ;i <model.count;i++)
+	{
+		var elem=model.get(i);
+		var j=getListOfComputerScienceFields().indexOf(elem.name)
+		model.setProperty(i,"value",listofconvertedvalue[j])
+	}
+}
+function getListOfConvertedComputerScience(name,value)
+{
+	var decimal=0;
+	switch(name)
+	{
+		case("Binary"):
+		{
+			decimal=conversion_from_bin_to_dec(value);
+			break;
+		}
+		case("Hex"):
+		{
+			decimal=conversion_from_hex_to_dec(value);
+			break;
+		}
+		case("Decimal"):
+		{
+			decimal=value;
+			break;
+		}
+		default:
+		{
+			console.log(name+" not yet implemented");
+		}
+	}
+// 	console.log(value+" in decimal is"+decimal);
+	var ret=[];
+	for (var i = 0; i < getListOfComputerScienceFields().length; i++) 
+	{
+		switch(getListOfComputerScienceFields()[i])
+		{
+			case("Decimal"):
+			{
+				ret.push(decimal);
+				break;
+			}
+			case("Binary"):
+			{
+				ret.push(conversion_from_dec_to_bin(decimal));
+				break;
+			}
+			case("Hex"):
+			{
+				ret.push(conversion_from_dec_to_hex(decimal));
+				break;
+			}
+			default:
+			{
+				console.log(getListOfComputerScienceFields()[i]+" not yet implemented");
+				ret.push("not implemented");
+				break;
+			}
+		}
+	}
+	return ret;
+}
+
 function conversion_from_bin_to_dec(str){
 	//console.log("conver from binary to dec");
 	//console.log(str);
@@ -19,6 +100,9 @@ function conversion_from_dec_to_bin(str){
 	//console.log(str);
 	return (str >>> 0).toString(2);
 }
+
+
+//Energy
 function createEnergyModel(model)
 {
 	for (var i = 0; i < getListOfEnergyFields().length; i++) 

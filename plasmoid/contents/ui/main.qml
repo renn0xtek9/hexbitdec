@@ -27,12 +27,7 @@ Item {
 				title:"Computer Science"
 				Computersciencetab{
 					id : cstab 
-					anchors{
-						left:parent.left 
-						right:parent.right
-						top:parent.top
-						bottom:parent.bottom
-					}
+					anchors.fill:parent
 				}
 			}
 			Tab{

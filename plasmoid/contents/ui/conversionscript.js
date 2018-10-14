@@ -1,4 +1,122 @@
 //conversionscript.js
+//Surface
+
+function getListOfFieldsForTab(tabname)
+{
+	var ret=[];
+	if(tabname=="Area")
+	{
+		var ret=["m2","km2","hectare","Roman acre","inch2","feet2"];
+	}
+	return ret;
+}
+function createTabModel(tabname,model)
+{
+	for(var i=0; i<getListOfFieldsForTab(tabname).length;i++)
+	{
+		model.insert(0,{"name":getListOfFieldsForTab(tabname)[i],"value":"-1.0"});
+	}	
+}
+function UpdateTab(tabname,model,name,value)
+{
+	var listofconvertedvalue=getListOfConvertedFieldsForTab(tabname,name,value);
+	for (var i=0 ;i <model.count;i++)
+	{
+		var elem=model.get(i);
+		var j=getListOfFieldsForTab(tabname).indexOf(elem.name)
+		model.setProperty(i,"value",listofconvertedvalue[j])
+	}
+}
+function getListOfConvertedFieldsForTab(tabname,name,value)
+{
+	var mainvalue=0;			//For each tab, there is a value which we convert he field that has been entered to. And form this value we will convert every other
+	switch(name)
+	{
+		case("m2"):
+		{
+			mainvalue=value;
+			break;
+		}
+		case("km2"):
+		{
+			mainvalue=value*1.0e6;
+			break;
+		}
+		case("hectare"):
+		{
+			mainvalule=value*10000.0;
+			break;
+		}
+		case("Roman acre"):
+		{
+			mainvalue=value*5058.054;
+			break;
+		}
+		case("inch2"):
+		{
+			mainvalue=value*0.00064516;
+			break;
+		}
+		case("feet2"):
+		{
+			mainvalue=value*0.092903;
+			break;
+		}
+		default:
+		{
+			console.log(name+" not yet implemented");
+		}
+	}
+// 	console.log(value+" in decimal is"+decimal);
+	var ret=[];
+	for (var i = 0; i < getListOfFieldsForTab(tabname).length; i++) 
+	{
+		switch(getListOfFieldsForTab(tabname)[i])
+		{
+			case("m2"):
+			{
+				ret.push(mainvalue);
+				break;
+			}
+			case("km2"):
+			{
+				ret.push(formatvalue(mainvalue/1.0e6));
+				break;
+			}
+			case("hectare"):
+			{
+				ret.push(formatvalue(mainvalue/10000.0));
+				break;
+			}
+			case("Roman acre"):
+			{
+				ret.push(formatvalue(mainvalue/5058.054));
+				break;
+			}
+			case("inch2"):
+			{
+				ret.push(formatvalue(mainvalue/0.00064516));
+				break;
+			}
+			case("feet2"):
+			{
+				ret.push(formatvalue(mainvalue/0.092903));
+				break;
+			}			
+			default:
+			{
+				console.log(getListOfFieldsForTab(tabname)[i]+" not yet implemented");
+				ret.push("not implemented");
+				break;
+			}
+		}
+	}
+	return ret;
+}
+
+
+
+
 //Computer science
 function getListOfComputerScienceFields()
 {

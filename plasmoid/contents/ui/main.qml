@@ -40,7 +40,12 @@ Item {
 
 			}
 			Tab{
-				title: "Surface"
+				title: "Areas"
+				Tabcomponent{
+					id :areatab
+					tabname: "Area"
+					anchors.fill:parent
+				}
 			}
 		}
 		

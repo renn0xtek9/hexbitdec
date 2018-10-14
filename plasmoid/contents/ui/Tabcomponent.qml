@@ -10,17 +10,17 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import "conversionscript.js" as Conversionscript
 ColumnLayout{
+	property string tabname
 	id : col 
 	Layout.fillWidth:true
 	Layout.fillHeight:true
 	function clicked(name,value)
 	{
-		
-		Conversionscript.UpdateEnergy(listmodel,name,value)
+		Conversionscript.UpdateTab(tabname,listmodel,name,value)
 	}
 	function createmodel()
 	{
-		Conversionscript.createEnergyModel(listmodel)
+		Conversionscript.createTabModel(tabname,listmodel)
 	}
 	
 	ListModel {				//This will be create onCompleted by the javascript script !
@@ -67,3 +67,4 @@ ColumnLayout{
 			col.createmodel();
 	}
 }
+

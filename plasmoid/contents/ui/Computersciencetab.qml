@@ -50,7 +50,7 @@ ColumnLayout{
 				col.clicked(name,textfield.text) ;
 			}
 			Component.onCompleted:{
-				console.log(rowcomponent.width);
+				//console.log(rowcomponent.width);
 			}
 		}
 	}

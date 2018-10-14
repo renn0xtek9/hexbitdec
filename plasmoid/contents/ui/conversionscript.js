@@ -146,7 +146,7 @@ function getListOfConvertedEnergy(name,value){
 			joule=valuefloat*3600.0;
 			break;
 		case "kg. TNT":
-			joule=valuefloat*4184.0*1000000.0;
+			joule=valuefloat*4.1840*1000000.0;
 			break;
 		case "cal":
 			joule=valuefloat*4184;

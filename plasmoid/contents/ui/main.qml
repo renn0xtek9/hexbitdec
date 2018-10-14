@@ -24,7 +24,7 @@ Item {
 		{
 			anchors.fill:parent
 			Tab{
-				title:"Computer Science"
+				title:"Computer"
 				Computersciencetab{
 					id : cstab 
 					anchors.fill:parent

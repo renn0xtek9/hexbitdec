@@ -8,6 +8,10 @@ function getListOfFieldsForTab(tabname)
 	{
 		var ret=["m2","km2","hectare","Roman acre","inch2","feet2"];
 	}
+	if (tabname=="Speed")
+	{
+		var ret=["m/s","km/h","mph","kt","Mach"];
+	}
 	return ret;
 }
 function createTabModel(tabname,model)
@@ -29,9 +33,30 @@ function UpdateTab(tabname,model,name,value)
 }
 function getListOfConvertedFieldsForTab(tabname,name,value)
 {
+	//Don't even need to switch over tabname since we should not have two times the same unit acrorss the tabs
 	var mainvalue=0;			//For each tab, there is a value which we convert he field that has been entered to. And form this value we will convert every other
 	switch(name)
 	{
+		case("m/s"):
+		{
+			mainvalue=value;
+		}
+		case("km/h"):
+		{
+			mainvalue=value*3.6;
+		}
+		case("mph"):
+		{
+			mainvalue=value*3.6*1.60934;
+		}
+		case("kt"):
+		{
+			mainvalue=value*1.85*3.6;
+		}
+		case("Mach"):
+		{
+			mainvalue=value*340.0;
+		}
 		case("m2"):
 		{
 			mainvalue=value;
@@ -73,6 +98,31 @@ function getListOfConvertedFieldsForTab(tabname,name,value)
 	{
 		switch(getListOfFieldsForTab(tabname)[i])
 		{
+			case("m/s"):
+			{
+				ret.push(formatvalue(mainvalue));
+				break;
+			}
+			case("km/h"):
+			{
+				ret.push(formatvalue(mainvalue/3.6));
+				break;
+			}
+			case("mph"):
+			{
+				ret.push(formatvalue(mainvalue/3.6/1.60934))
+				break;
+			}
+			case("kt"):
+			{
+				ret.push(formatvalue(mainvalue/1.85/3.6));
+				break;
+			}
+			case("Mach"):
+			{
+				ret.push(formatvalue(mainvalue/340.0));
+				break;
+			}			
 			case("m2"):
 			{
 				ret.push(mainvalue);

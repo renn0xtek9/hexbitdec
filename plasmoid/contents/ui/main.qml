@@ -47,6 +47,14 @@ Item {
 					anchors.fill:parent
 				}
 			}
+			Tab{
+				title: "Speed"
+				Tabcomponent{
+					id: speedtab
+					tabname:" Speed"
+					anchors.fill: parent 
+				}
+			}
 		}
 		
 	}

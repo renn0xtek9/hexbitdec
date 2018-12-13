@@ -304,7 +304,7 @@ function getListOfConvertedEnergy(name,value){
 				ret.push(formatvalue(joule/3600.0));
 				break;
 			case "kg. TNT":
-				ret.push(formatvalue(joule/4184.0/1000000));
+				ret.push(formatvalue(joule/4.1840/1000000));
 				break;
 			case "cal":
 				ret.push(formatvalue(joule/4184));

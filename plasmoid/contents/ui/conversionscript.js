@@ -40,22 +40,27 @@ function getListOfConvertedFieldsForTab(tabname,name,value)
 		case("m/s"):
 		{
 			mainvalue=value;
+			break;
 		}
 		case("km/h"):
 		{
 			mainvalue=value*3.6;
+			break;
 		}
 		case("mph"):
 		{
 			mainvalue=value*3.6*1.60934;
+			break;
 		}
 		case("kt"):
 		{
 			mainvalue=value*1.85*3.6;
+			break;
 		}
 		case("Mach"):
 		{
 			mainvalue=value*340.0;
+			break;
 		}
 		case("m2"):
 		{
@@ -163,9 +168,6 @@ function getListOfConvertedFieldsForTab(tabname,name,value)
 	}
 	return ret;
 }
-
-
-
 
 //Computer science
 function getListOfComputerScienceFields()

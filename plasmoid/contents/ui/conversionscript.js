@@ -34,27 +34,30 @@ function UpdateTab(tabname,model,name,value)
 function getListOfConvertedFieldsForTab(tabname,name,value)
 {
 	//Don't even need to switch over tabname since we should not have two times the same unit acrorss the tabs
-	var mainvalue=0;			//For each tab, there is a value which we convert he field that has been entered to. And form this value we will convert every other
+	var mainvalue=0;			
+	var mainvalue=(parseFloat(value,10)); //For each tab, there is a value which we convert he field that has been entered to. And form this value we will convert every other
 	switch(name)
 	{
 		case("m/s"):
 		{
-			mainvalue=value;
+			mainvalue=value*1.0;
 			break;
 		}
 		case("km/h"):
 		{
-			mainvalue=value*3.6;
+			console.log("here")
+			mainvalue=value/3.6;
 			break;
 		}
 		case("mph"):
 		{
-			mainvalue=value*3.6*1.60934;
+			mainvalue=value/(3.6*1.60934);
 			break;
 		}
 		case("kt"):
 		{
-			mainvalue=value*1.85*3.6;
+			mainvalue=value*(1.85/3.6);
+			console.log(value+" kt is "+mainvalue+" m/s");
 			break;
 		}
 		case("Mach"):
@@ -110,17 +113,18 @@ function getListOfConvertedFieldsForTab(tabname,name,value)
 			}
 			case("km/h"):
 			{
-				ret.push(formatvalue(mainvalue/3.6));
+				ret.push(formatvalue(mainvalue*3.6));
 				break;
 			}
 			case("mph"):
 			{
-				ret.push(formatvalue(mainvalue/3.6/1.60934))
+				ret.push(formatvalue(mainvalue*3.6/1.60934))
 				break;
 			}
 			case("kt"):
 			{
-				ret.push(formatvalue(mainvalue/1.85/3.6));
+				ret.push(formatvalue(mainvalue/(1.85/3.6)));
+				console.log(mainvalue+" m/s is "+ret[-1]+"kt");
 				break;
 			}
 			case("Mach"):

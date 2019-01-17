@@ -51,7 +51,7 @@ Item {
 				title: "Speed"
 				Tabcomponent{
 					id: speedtab
-					tabname:" Speed"
+					tabname: "Speed"
 					anchors.fill: parent 
 				}
 			}

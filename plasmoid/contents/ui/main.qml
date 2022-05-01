@@ -55,6 +55,14 @@ Item {
 					anchors.fill: parent 
 				}
 			}
+			Tab{
+				title: "Flow-rate"
+				Tabcomponent{
+					id: speedtab
+					tabname: "Flow-rate"
+					anchors.fill: parent
+				}
+			}
 		}
 		
 	}

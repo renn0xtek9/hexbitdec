@@ -12,6 +12,10 @@ function getListOfFieldsForTab(tabname)
 	{
 		var ret=["m/s","km/h","mph","kt","Mach"];
 	}
+	if (tabname=="Flow-rate")
+	{
+		var ret=["m3/s","l/s","m3/h","cfm"];
+	}
 	return ret;
 }
 function createTabModel(tabname,model)
@@ -34,8 +38,8 @@ function UpdateTab(tabname,model,name,value)
 function getListOfConvertedFieldsForTab(tabname,name,value)
 {
 	//Don't even need to switch over tabname since we should not have two times the same unit acrorss the tabs
-	var mainvalue=0;			
-	var mainvalue=(parseFloat(value,10)); //For each tab, there is a value which we convert he field that has been entered to. And form this value we will convert every other
+	var mainvalue=0;
+	var mainvalue=(parseFloat(value,10)); //For each tab, there is a value which we convert he field that has been entered to. from form this value we will convert every other
 	switch(name)
 	{
 		case("m/s"):
@@ -45,7 +49,6 @@ function getListOfConvertedFieldsForTab(tabname,name,value)
 		}
 		case("km/h"):
 		{
-			console.log("here")
 			mainvalue=value/3.6;
 			break;
 		}
@@ -57,7 +60,6 @@ function getListOfConvertedFieldsForTab(tabname,name,value)
 		case("kt"):
 		{
 			mainvalue=value*(1.85/3.6);
-			console.log(value+" kt is "+mainvalue+" m/s");
 			break;
 		}
 		case("Mach"):
@@ -95,12 +97,31 @@ function getListOfConvertedFieldsForTab(tabname,name,value)
 			mainvalue=value*0.092903;
 			break;
 		}
+		case("m3/s"):
+		{
+			mainvalue=value;
+			break;
+		}
+		case("l/s"):
+		{
+			mainvalue=value/1000.0;
+			break;
+		}
+		case("m3/h"):
+		{
+			mainvalue=value/3600.0;
+			break;
+		}
+		case("cfm"):
+		{
+			mainvalue=value*(0.3048*0.3048*0.3048/60.0);
+			break;
+		}
 		default:
 		{
 			console.log(name+" not yet implemented");
 		}
 	}
-// 	console.log(value+" in decimal is"+decimal);
 	var ret=[];
 	for (var i = 0; i < getListOfFieldsForTab(tabname).length; i++) 
 	{
@@ -161,7 +182,27 @@ function getListOfConvertedFieldsForTab(tabname,name,value)
 			{
 				ret.push(formatvalue(mainvalue/0.092903));
 				break;
-			}			
+			}
+			case("m3/s"):
+			{
+				ret.push(formatvalue(mainvalue));
+				break;
+			}
+			case("l/s"):
+			{
+				ret.push(formatvalue(mainvalue*1000.0));
+				break;
+			}
+			case("m3/h"):
+			{
+				ret.push(formatvalue(mainvalue*3600));
+				break;
+			}
+			case("cfm"):
+			{
+				ret.push(formatvalue(mainvalue/(0.3048*0.3048*0.3048/60.0)));
+				break;
+			}
 			default:
 			{
 				console.log(getListOfFieldsForTab(tabname)[i]+" not yet implemented");
